@@ -32,6 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 
+# Git
+.git
+.gitignore
+
 ### Docker ###
 .dockerignore
 
