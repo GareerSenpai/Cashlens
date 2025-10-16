@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./server
+    container_name: cashlens_server
+    restart: always
+    ports:
+      - "9000:9000"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    container_name: cashlens_client
+    restart: always
+    env_file:
+      - client/.env.local
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
