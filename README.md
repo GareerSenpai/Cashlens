@@ -38,7 +38,7 @@ The project follows a **client-server architecture**:
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/GareerSenpai/cashlens.git
+git clone https://github.com/GareerSenpai/Cashlens.git
 cd cashlens
 ```
 
