@@ -39,7 +39,7 @@ The project follows a **client-server architecture**:
 
 ```bash
 git clone https://github.com/GareerSenpai/Cashlens.git
-cd cashlens
+cd Cashlens
 ```
 
 ### 2️⃣ Configure Environment Variables
