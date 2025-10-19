@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AUTH_URLS } from "@/constants/URLs/backendServices";
+import { useAuth } from "@/contexts/AuthProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
@@ -14,6 +15,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
+
+  const { setToken } = useAuth();
 
   const passwordSchema = z
     .string()
@@ -41,12 +44,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = await axios.post(AUTH_URLS.login, data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(AUTH_URLS.login, data);
 
       console.log(res.data);
+      const jwt = res.data;
       if (res.status === 200) {
+        setToken(jwt);
         navigate("/dashboard");
       } else {
         setError("root", {

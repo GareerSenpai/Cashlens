@@ -3,24 +3,31 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AUTH_URLS } from "@/constants/URLs/backendServices";
+import { useAuth } from "@/contexts/AuthProvider";
 
 const Logout = () => {
   const navigate = useNavigate();
+  const { setToken } = useAuth();
+
+  // useEffect(() => {
+  //   const logoutUser = async () => {
+  //     try {
+  //       await axios.post(AUTH_URLS.logout, {}, { withCredentials: true });
+  //     } catch (err) {
+  //       console.error("Logout failed:", err);
+  //     } finally {
+  //       // Always navigate to login
+  //       navigate("/login");
+  //     }
+  //   };
+
+  //   logoutUser();
+  // }, [navigate]);
 
   useEffect(() => {
-    const logoutUser = async () => {
-      try {
-        await axios.post(AUTH_URLS.logout, {}, { withCredentials: true });
-      } catch (err) {
-        console.error("Logout failed:", err);
-      } finally {
-        // Always navigate to login
-        navigate("/login");
-      }
-    };
-
-    logoutUser();
-  }, [navigate]);
+    setToken(null);
+    navigate("/login", { replace: true });
+  }, [navigate, setToken]);
 };
 
 export default Logout;

@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cashlens.expensetracker.DTO.LoginRequestDTO;
 import com.cashlens.expensetracker.DTO.ResetPasswordDTO;
 import com.cashlens.expensetracker.models.UserModel;
+import com.cashlens.expensetracker.services.UserDetailsServiceImpl;
 import com.cashlens.expensetracker.services.UserService;
+import com.cashlens.expensetracker.utils.JwtUtil;
 
 import static com.cashlens.expensetracker.utils.constants.RegexConstants.PASSWORD_REGEX;
 
@@ -27,15 +30,23 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("public")
+@Slf4j
 public class PublicController {
     @Autowired
     private UserService userService;
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping("/health-check")
     public String healthCheck() {
@@ -48,7 +59,7 @@ public class PublicController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest, HttpServletRequest request) {
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequest, HttpServletRequest request) {
         try {
             String rawPassword = loginRequest.getPassword();
             if (!rawPassword.matches(PASSWORD_REGEX)) {
@@ -59,19 +70,25 @@ public class PublicController {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-            // Get or create the session
-            HttpSession session = request.getSession(true);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
+            String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-            // Store authentication in session so Spring can manage it
-            session.setAttribute(
-                    "SPRING_SECURITY_CONTEXT",
-                    SecurityContextHolder.getContext());
+            return new ResponseEntity<>(jwt, HttpStatus.OK);
 
-            // Set authentication in SecurityContextHolder
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            // // Get or create the session
+            // HttpSession session = request.getSession(true);
 
-            return new ResponseEntity<>("Login successful", HttpStatus.OK);
-        } catch (AuthenticationException e) {
+            // // Store authentication in session so Spring can manage it
+            // session.setAttribute(
+            // "SPRING_SECURITY_CONTEXT",
+            // SecurityContextHolder.getContext());
+
+            // // Set authentication in SecurityContextHolder
+            // SecurityContextHolder.getContext().setAuthentication(auth);
+
+            // return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Exception occured while createAuthenticationToken: " + e);
             return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
         }
     }
