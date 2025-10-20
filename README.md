@@ -44,7 +44,7 @@ cd Cashlens
 
 ### 2️⃣ Configure Environment Variables
 
-Create a **.env.local** file in the same directory where your **application.yml** is present in the server directory based on the example below:
+Create a **.env.properties** file in the same directory where your **application.yml** is present in the server directory based on the example below:
 
 ### .env.example
 
