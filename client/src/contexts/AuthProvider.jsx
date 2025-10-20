@@ -9,14 +9,8 @@ import React, {
 
 const AuthContext = createContext();
 
-const tokenFromStorage = localStorage.getItem("token");
-if (tokenFromStorage) {
-  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenFromStorage;
-}
-
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (token) {
@@ -26,16 +20,14 @@ const AuthProvider = ({ children }) => {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem("token");
     }
-    setIsLoading(false);
   }, [token]);
 
   const contextValue = useMemo(
     () => ({
       token,
       setToken,
-      isLoading,
     }),
-    [token, isLoading]
+    [token]
   );
 
   return (
