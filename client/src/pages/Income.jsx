@@ -169,7 +169,12 @@ const Income = () => {
 
         {/* {Chart} */}
         <div name="chartSection" className="">
-          {incomeData?.incomeList?.length > 0 ? (
+          {isLoading && (
+            <div className="flex justify-center items-center h-[400px]">
+              <h1 className="text-2xl">Loading...</h1>
+            </div>
+          )}
+          {!isLoading && incomeData?.incomeList?.length > 0 ? (
             <BarChartComponent
               dataList={incomeData.incomeList}
               activeFilter={

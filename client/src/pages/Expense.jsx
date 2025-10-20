@@ -171,7 +171,12 @@ const Expense = () => {
 
         {/* {Chart} */}
         <div name="chartSection" className="">
-          {expenseData?.expenseList?.length > 0 ? (
+          {isLoading && (
+            <div className="flex justify-center items-center h-[400px]">
+              <h1 className="text-2xl">Loading...</h1>
+            </div>
+          )}
+          {!isLoading && expenseData?.expenseList?.length > 0 ? (
             <LineChartComponent
               dataList={expenseData.expenseList}
               activeFilter={
