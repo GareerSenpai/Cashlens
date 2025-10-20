@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.crypto.SecretKey;
 
-import org.hibernate.sql.ast.tree.expression.Every;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -16,7 +16,8 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
-    private String SECRET_KEY = "kjasnFJNNKAJFNDljanfln*/AAF++-AFKNA!";
+    @Value("${jwt.secret_key}")
+    private String SECRET_KEY;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -38,7 +39,7 @@ public class JwtUtil {
                 .header().empty().add("typ", "JWT")
                 .and()
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60))
                 .signWith(getSigningKey())
                 .compact(); // compact finalizes and encodes the JWT
 
@@ -52,20 +53,23 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
+        Claims claims = Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+
+        System.out.println("Claims: " + claims);
+        return claims;
     }
 
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    public Boolean validateToken(String token, String username) {
+    public Boolean validateToken(String token, String usernameFromDB) {
         String extractedUsername = extractUsername(token);
-        return (username.equals(extractedUsername) && !isTokenExpired(token));
+        return (usernameFromDB.equals(extractedUsername) && !isTokenExpired(token));
     }
 
     public Boolean isTokenExpired(String token) {
