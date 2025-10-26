@@ -8,7 +8,7 @@
 
 - 📊 Interactive charts (using **Recharts**) for Income, Expense, and Summary views
 - 🧾 Perform **CRUD operations** (Create, Read, Update, Delete) on transactions
-- 🔒 User authentication using **Spring Security** (JWT support coming soon)
+- 🔒 User authentication using **Spring Security with JWT**
 - 🐳 Fully containerized using **Docker** for easy deployment
 - ☁️ Uses **Aiven’s DigitalOcean-managed MySQL** for secure and scalable cloud storage
 
@@ -44,9 +44,9 @@ cd Cashlens
 
 ### 2️⃣ Configure Environment Variables
 
-Create a **.env.properties** file in the same directory where your **application.yml** is present in the server directory based on the example below:
+Create a **.env** file in the same directory where your **application.yml** is present in the server directory based on the example below:
 
-### .env.example
+### .env.example (server side)
 
 ```bash
 SPRING_DATASOURCE_URL=x
@@ -55,6 +55,14 @@ SPRING_DATASOURCE_PASSWORD=x
 MAIL_USERNAME=x
 MAIL_PASSWORD=x
 SERVER_PORT=x
+```
+
+Create a **.env** file in the root of the client directory based on the example below:
+
+### .env.example (client side)
+
+```bash
+VITE_CASHLENS_BACKEND_URL=x
 ```
 
 ### 3️⃣ Run with Docker
@@ -79,20 +87,6 @@ docker-compose up --build
 **Frontend** → http://localhost:5173
 
 **Backend API** → http://localhost:9000
-
----
-
-## 📈 Roadmap
-
-✅ Implement CRUD operations
-
-✅ Add chart-based analytics
-
-🔄 Integrate JWT authentication
-
-🔜 Add user profile and budget goals
-
-🔜 Deployment (Render / Railway / Docker Hub)
 
 ---
 
