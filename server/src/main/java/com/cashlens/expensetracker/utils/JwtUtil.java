@@ -59,7 +59,6 @@ public class JwtUtil {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        System.out.println("Claims: " + claims);
         return claims;
     }
 
