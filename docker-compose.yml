@@ -1,6 +1,7 @@
 services:
   backend:
     build: ./server
+    image: gareer/cashlens-backend:latest
     container_name: cashlens_server
     restart: always
     env_file:
