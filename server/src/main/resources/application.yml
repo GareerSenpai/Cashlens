@@ -49,7 +49,7 @@ password:
     expiryInMinutes: 5
 
 server:
-  port: ${SERVER_PORT}
+  port: ${PORT:9000}
 
 jwt:
   secret_key: ${JWT_SECRET_KEY}
