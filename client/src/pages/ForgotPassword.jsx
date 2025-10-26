@@ -30,11 +30,11 @@ const ForgotPassword = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    data;
     try {
       const res = await axios.post(AUTH_URLS.forgotPassword, data);
 
-      console.log(res.data);
+      res.data;
       if (res.status === 200) {
         setIsMailSent(true);
       } else {

@@ -42,11 +42,11 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    data;
     try {
       const res = await axios.post(AUTH_URLS.login, data);
 
-      console.log(res.data);
+      res.data;
       const jwt = res.data;
       if (res.status === 200) {
         setToken(jwt);

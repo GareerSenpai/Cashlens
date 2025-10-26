@@ -45,7 +45,7 @@ const ResetPassword = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    data;
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get("token");
 
@@ -56,7 +56,7 @@ const ResetPassword = () => {
         withCredentials: true,
       });
 
-      console.log(res.data);
+      res.data;
       if (res.status === 200) {
         navigate("/login?message=Password reset successfully");
       } else {

@@ -66,10 +66,10 @@ const Register = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    data;
     try {
       const res = await axios.post(AUTH_URLS.register, data);
-      console.log(res);
+      res;
 
       if (res.status === 201) {
         navigate("/login");
