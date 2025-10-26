@@ -3,6 +3,8 @@ services:
     build: ./server
     container_name: cashlens_server
     restart: always
+    env_file:
+      - server/src/main/resources/.env
     ports:
       - "9000:9000"
 
@@ -13,7 +15,7 @@ services:
     container_name: cashlens_client
     restart: always
     env_file:
-      - client/.env.local
+      - client/.env
     depends_on:
       - backend
     ports:
