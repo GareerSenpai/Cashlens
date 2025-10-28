@@ -74,7 +74,6 @@ const UpdateTransactionDialog = ({ item, type }) => {
         withCredentials: true,
       });
 
-      res.data;
       if (res.status === 200) {
         setShowDialog(false);
         queryClient.invalidateQueries([type.toLowerCase()]);

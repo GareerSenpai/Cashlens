@@ -41,7 +41,6 @@ const Expense = () => {
         withCredentials: true,
       });
 
-      res.data;
       return res.data;
     },
   });

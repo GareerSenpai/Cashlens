@@ -20,7 +20,6 @@ const Dashboard = () => {
         withCredentials: true,
       });
 
-      res.data;
       return res.data;
     },
   });
@@ -33,7 +32,6 @@ const Dashboard = () => {
     const dateB = new Date(b.incomeDate || b.expenseDate || 0);
     return dateB - dateA;
   });
-  "Recent Transactions", recentTransactionList;
 
   const totalExpense = summaryData?.expenseSummary.totalAmount;
   const totalIncome = summaryData?.incomeSummary.totalAmount;

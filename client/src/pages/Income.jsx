@@ -40,7 +40,6 @@ const Income = () => {
         withCredentials: true,
       });
 
-      res.data;
       return res.data;
     },
   });

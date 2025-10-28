@@ -1,16 +1,10 @@
+import { useMemo, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
-const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (token) {
@@ -20,23 +14,22 @@ const AuthProvider = ({ children }) => {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem("token");
     }
+
+    setLoading(false);
   }, [token]);
 
   const contextValue = useMemo(
     () => ({
       token,
       setToken,
+      loading,
     }),
-    [token]
+    [token, loading]
   );
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  return useContext(AuthContext);
 };
 
 export default AuthProvider;

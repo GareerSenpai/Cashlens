@@ -1,9 +1,6 @@
-// src/pages/Logout.jsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { AUTH_URLS } from "@/constants/URLs/backendServices";
-import { useAuth } from "@/contexts/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 
 const Logout = () => {
   const navigate = useNavigate();

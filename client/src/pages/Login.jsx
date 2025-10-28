@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AUTH_URLS } from "@/constants/URLs/backendServices";
-import { useAuth } from "@/contexts/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
@@ -42,11 +42,9 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-    data;
     try {
       const res = await axios.post(AUTH_URLS.login, data);
 
-      res.data;
       const jwt = res.data;
       if (res.status === 200) {
         setToken(jwt);
