@@ -34,7 +34,8 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // allow CORS preflight requests
+                // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // allow CORS
+                // preflight requests
                 .requestMatchers("/public/**").permitAll()
                 .anyRequest().authenticated())
                 // .formLogin(Customizer.withDefaults())
@@ -74,7 +75,7 @@ public class SpringSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://cashlens-virid.vercel.app"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
