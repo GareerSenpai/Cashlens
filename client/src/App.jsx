@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -13,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Logout from "./pages/Logout";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +21,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <LandingPage />,
         },
         {
           path: "/logout",
