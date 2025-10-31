@@ -34,8 +34,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // allow CORS
-                // preflight requests
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // allow CORS preflight requests
                 .requestMatchers("/public/**").permitAll()
                 .anyRequest().authenticated())
                 // .formLogin(Customizer.withDefaults())
