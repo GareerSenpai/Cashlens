@@ -94,8 +94,8 @@ const Register = () => {
         <h1 className="text-3xl font-bold">Create an Account</h1>
         <p className="text-sm">Join us today by entering your details below</p>
       </div>
-      <div name="nameField" className="flex gap-6">
-        <div className="flex-1">
+      <div name="nameField" className="sm:flex sm:gap-6">
+        <div className="sm:flex-1 mb-4 sm:mb-0">
           <Label htmlFor="firstName" className={"mb-2"}>
             First Name
           </Label>
@@ -109,7 +109,7 @@ const Register = () => {
             <p className="text-red-500 text-sm">{errors.firstName.message}</p>
           )}
         </div>
-        <div className="flex-1">
+        <div className="sm:flex-1">
           <Label htmlFor="lastName" className={"mb-2"}>
             Last Name
           </Label>

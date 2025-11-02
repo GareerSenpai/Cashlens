@@ -66,7 +66,7 @@ const Login = () => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       name="loginContainer"
-      className="flex flex-col gap-6 w-[50%]"
+      className="flex flex-col gap-6 w-[80%] sm:w-[50%]"
     >
       <div name="greetings" className="">
         <h1 className="text-3xl font-bold">Welcome Back</h1>
