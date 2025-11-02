@@ -1,14 +1,30 @@
 import Sidebar from "@/components/Sidebar";
-import React from "react";
+import SidebarContext from "@/contexts/SidebarContext";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
+  const { showSidebar, setShowSidebar } = useContext(SidebarContext);
   return (
     <div className="flex h-full bg-gray-200">
-      <div name="sidebar" className="w-[20%] border bg-white">
+      <div
+        name="sidebar"
+        className={`fixed z-100 w-[280px] h-full lg:translate-x-0 ${
+          showSidebar ? "translate-x-0" : "-translate-x-full"
+        } transition-all duration-300 border bg-white shadow-md`}
+      >
         <Sidebar />
       </div>
-      <div className="flex-1 p-6">
+
+      {/* Overlay (only for small screens) */}
+      <div
+        className={`fixed inset-0 ${
+          showSidebar ? "opacity-15" : "opacity-0"
+        } bg-black z-40 lg:hidden transition-opacity duration-300`}
+        onClick={() => setShowSidebar(false)} // click outside to close
+      ></div>
+
+      <div className="flex-1 p-6 lg:ml-[280px]">
         <Outlet />
       </div>
     </div>
