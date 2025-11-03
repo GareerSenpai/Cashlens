@@ -73,8 +73,11 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-4">
       {/* {First Row} */}
-      <div name="summary" className="flex gap-4 items-center">
-        <div className="flex-1 p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
+      <div
+        name="summary"
+        className="flex flex-col md900:flex-row gap-4 items-center"
+      >
+        <div className="flex-1 w-full p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           <div className="flex rounded-full p-4 bg-[#7A52F2]">
             <PiggyBank stroke="white" size={24} />
           </div>
@@ -83,7 +86,7 @@ const Dashboard = () => {
             <h2>${totalBalance}</h2>
           </div>
         </div>
-        <div className="flex-1 p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
+        <div className="flex-1 w-full p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           <div className="rounded-full p-4 bg-[#FB5E00]">
             <WalletMinimal stroke="white" size={24} />
           </div>
@@ -92,7 +95,7 @@ const Dashboard = () => {
             <h2>${totalIncome}</h2>
           </div>
         </div>
-        <div className="flex-1 p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
+        <div className="flex-1 w-full p-4 rounded-[8px] flex gap-4 items-center bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           <div className="rounded-full p-4 bg-[#ef4444]">
             <HandCoins stroke="white" size={24} />
           </div>
@@ -104,7 +107,7 @@ const Dashboard = () => {
       </div>
 
       {/* {Second Row} */}
-      <div className="flex gap-4">
+      <div className="flex flex-col md900:flex-row gap-4">
         <div className="flex-1 flex flex-col gap-4 p-4 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           <div name="heading" className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">Recent Transactions</h2>
@@ -123,7 +126,7 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-        <div className="flex-1 flex flex-col gap-4 p-4 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
+        <div className="hidden flex-1 sm:flex flex-col gap-4 p-4 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           {/* {Chart} */}
           <h2 className="text-lg font-semibold">Financial Overview</h2>
           <div className="flex justify-center items-center flex-1">
@@ -138,7 +141,7 @@ const Dashboard = () => {
       </div>
 
       {/* {Third Row} */}
-      <div className="flex gap-4">
+      <div className="flex flex-col md900:flex-row gap-4">
         <div className="flex-1 flex flex-col gap-4 p-4 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]">
           <div name="heading" className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">Recent Income</h2>
