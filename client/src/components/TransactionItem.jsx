@@ -8,12 +8,20 @@ const TransactionItem = ({ item, type, showActions = true }) => {
     <div
       //   key={item.id}
       name="item"
-      className="group relative flex justify-between items-center px-4 py-2 hover:bg-gray-100 rounded-[4px]"
+      className="group relative flex justify-between items-center sm:px-4 py-2 hover:bg-gray-100 rounded-[4px]"
     >
       {/* Delete button */}
       {showActions && (
         <div name="deleteTransaction" className="absolute -top-2 -right-3 z-50">
           <DeleteTransaction id={item.id} type={type} />
+        </div>
+      )}
+      {showActions && (
+        <div
+          name="updateTransaction"
+          className="absolute sm:hidden -top-1 -left-3 z-50"
+        >
+          <UpdateTransactionDialog type={type} item={item} />
         </div>
       )}
 
@@ -34,11 +42,21 @@ const TransactionItem = ({ item, type, showActions = true }) => {
                 : item.incomeDate
             ).toLocaleDateString("en-GB")}
           </p>
+          <p
+            name="typeOfTransaction"
+            className={`xs375:hidden ${
+              type.toLowerCase() === "expense"
+                ? "text-[#f32626]"
+                : "text-[#00be00]"
+            } font-bold`}
+          >
+            {type.toLowerCase() === "income" ? "+" : "-"} {item.amount}
+          </p>
         </div>
       </div>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-3 sm:gap-4 items-center">
         {showActions && (
-          <div name="updateTransaction" className="">
+          <div name="updateTransaction" className="hidden sm:block">
             <UpdateTransactionDialog type={type} item={item} />
           </div>
         )}
@@ -48,7 +66,7 @@ const TransactionItem = ({ item, type, showActions = true }) => {
             type.toLowerCase() === "expense"
               ? "text-[#f32626] bg-[#f3262633]"
               : "text-[#00be00] bg-[#62d26233]"
-          }  font-bold rounded-[4px] flex justify-center items-center gap-2`}
+          }  font-bold rounded-[4px] hidden xs375:flex justify-center items-center gap-2`}
         >
           {type.toLowerCase() === "income" ? "+" : "-"} {item.amount}
           {type.toLowerCase() === "income" && <TrendingUp stroke="#00be00" />}
