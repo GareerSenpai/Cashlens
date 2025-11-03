@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const { showSidebar, setShowSidebar } = useContext(SidebarContext);
+
   return (
     <div className="flex h-full bg-gray-200">
       <div
@@ -19,8 +20,8 @@ const DashboardLayout = () => {
       {/* Overlay (only for small screens) */}
       <div
         className={`fixed inset-0 ${
-          showSidebar ? "opacity-15" : "opacity-0"
-        } bg-black z-40 lg:hidden transition-opacity duration-300`}
+          showSidebar ? "opacity-35 z-40" : "opacity-0 -z-40"
+        } bg-black lg:hidden transition-opacity duration-300`}
         onClick={() => setShowSidebar(false)} // click outside to close
       ></div>
 
