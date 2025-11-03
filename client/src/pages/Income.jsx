@@ -205,7 +205,7 @@ const Income = () => {
           {/* {Download Button} */}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md900:grid-cols-2 gap-4">
           {incomeData?.incomeList
             ?.slice(
               (activePage - 1) * ITEMS_PER_PAGE,

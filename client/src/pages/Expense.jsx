@@ -210,7 +210,7 @@ const Expense = () => {
           {/* {Download Button} */}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md900:grid-cols-2 gap-4">
           {expenseData?.expenseList
             ?.slice(
               (activePage - 1) * ITEMS_PER_PAGE,

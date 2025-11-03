@@ -25,7 +25,7 @@ const DashboardLayout = () => {
         onClick={() => setShowSidebar(false)} // click outside to close
       ></div>
 
-      <div className="flex-1 p-6 lg:ml-[280px]">
+      <div className="flex-1 p-4 sm:p-6 lg:ml-[280px]">
         <Outlet />
       </div>
     </div>

@@ -93,7 +93,7 @@ const UpdateTransactionDialog = ({ item, type }) => {
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <div className="rounded-full p-3 border border-gray-300 cursor-pointer hover:bg-gray-300">
+        <div className="rounded-full p-2 sm:p-3 border border-gray-300 bg-white cursor-pointer hover:bg-gray-300">
           <Pencil size={16} />
         </div>
       </DialogTrigger>
