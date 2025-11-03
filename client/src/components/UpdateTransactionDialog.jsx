@@ -67,9 +67,9 @@ const UpdateTransactionDialog = ({ item, type }) => {
     // Send request
     try {
       const URL =
-        type.toLowerCase() === "expense"
+        (type.toLowerCase() === "expense"
           ? TRANSACTION_URLS.expense
-          : TRANSACTION_URLS.income + `/${item.id}`;
+          : TRANSACTION_URLS.income) + `/${item.id}`;
       const res = await axios.put(URL, data, {
         withCredentials: true,
       });
@@ -150,6 +150,7 @@ const UpdateTransactionDialog = ({ item, type }) => {
               <Input
                 id="amount"
                 type="number"
+                step="0.01"
                 defaultValue={item.amount}
                 {...register("amount", { valueAsNumber: true })}
               />
