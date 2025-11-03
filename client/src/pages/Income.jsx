@@ -12,12 +12,14 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import AddTransactionDialog from "@/components/AddTransactionDialog";
 import { TRANSACTION_URLS } from "@/constants/URLs/backendServices";
+import { Pencil } from "lucide-react";
 
 const Income = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activePage, setActivePage] = useState(
     Number(searchParams.get("page")) || 1
   );
+  const [isEditable, setIsEditable] = useState(false);
   const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
@@ -132,11 +134,15 @@ const Income = () => {
     });
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <div
         name="incomeChart"
-        className="flex flex-col gap-4 rounded-[8px] p-4 bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
+        className="hidden sm:flex flex-col gap-4 rounded-[8px] p-4 bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
       >
         <div name="header" className="flex justify-between items-center">
           <div className="">
@@ -168,12 +174,7 @@ const Income = () => {
 
         {/* {Chart} */}
         <div name="chartSection" className="">
-          {isLoading && (
-            <div className="flex justify-center items-center h-[400px]">
-              <h1 className="text-2xl">Loading...</h1>
-            </div>
-          )}
-          {!isLoading && incomeData?.incomeList?.length > 0 ? (
+          {incomeData?.incomeList?.length > 0 ? (
             <BarChartComponent
               dataList={incomeData.incomeList}
               activeFilter={
@@ -189,21 +190,34 @@ const Income = () => {
       </div>
       <div
         name="incomeList"
-        className="flex flex-col gap-4 p-6 mt-6 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
+        className="flex flex-col gap-4 p-6 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
       >
         <div name="header" className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Income Sources</h1>
+          <Button
+            variant={isEditable ? "default" : "outline"}
+            onClick={() => setIsEditable((prev) => !prev)}
+            className={"!px-4"}
+          >
+            {" "}
+            <Pencil /> Edit
+          </Button>
           {/* {Download Button} */}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           {incomeData?.incomeList
             ?.slice(
               (activePage - 1) * ITEMS_PER_PAGE,
               activePage * ITEMS_PER_PAGE
             )
             .map((item) => (
-              <TransactionItem key={item.id} item={item} type="income" />
+              <TransactionItem
+                key={item.id}
+                item={item}
+                type="income"
+                showActions={isEditable}
+              />
             ))}
         </div>
 

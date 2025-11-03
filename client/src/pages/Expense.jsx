@@ -13,12 +13,14 @@ import { useSearchParams } from "react-router-dom";
 import AddTransactionDialog from "@/components/AddTransactionDialog";
 import LineChartComponent from "@/components/LineChartComponent";
 import { TRANSACTION_URLS } from "@/constants/URLs/backendServices";
+import { Pencil } from "lucide-react";
 
 const Expense = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activePage, setActivePage] = useState(
     Number(searchParams.get("page")) || 1
   );
+  const [isEditable, setIsEditable] = useState(false);
   const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
@@ -133,13 +135,20 @@ const Expense = () => {
     });
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <div
         name="expenseChart"
-        className="flex flex-col gap-4 rounded-[8px] p-4 bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
+        className="hidden sm:flex flex-col gap-4 rounded-[8px] p-4 bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
       >
-        <div name="header" className="flex justify-between items-center">
+        <div
+          name="header"
+          className="flex flex-wrap gap-2 justify-between items-center"
+        >
           <div className="">
             <h1 className="text-2xl font-semibold">Expense Overview</h1>
             <p className="text -sm text-gray-500">
@@ -170,12 +179,7 @@ const Expense = () => {
 
         {/* {Chart} */}
         <div name="chartSection" className="">
-          {isLoading && (
-            <div className="flex justify-center items-center h-[400px]">
-              <h1 className="text-2xl">Loading...</h1>
-            </div>
-          )}
-          {!isLoading && expenseData?.expenseList?.length > 0 ? (
+          {expenseData?.expenseList?.length > 0 ? (
             <LineChartComponent
               dataList={expenseData.expenseList}
               activeFilter={
@@ -191,21 +195,34 @@ const Expense = () => {
       </div>
       <div
         name="expenseList"
-        className="flex flex-col gap-4 p-6 mt-6 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
+        className="flex flex-col gap-4 p-6 rounded-[8px] bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.1)]"
       >
         <div name="header" className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Expense Sources</h1>
+          <Button
+            variant={isEditable ? "default" : "outline"}
+            onClick={() => setIsEditable((prev) => !prev)}
+            className={"!px-4"}
+          >
+            {" "}
+            <Pencil /> Edit
+          </Button>
           {/* {Download Button} */}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           {expenseData?.expenseList
             ?.slice(
               (activePage - 1) * ITEMS_PER_PAGE,
               activePage * ITEMS_PER_PAGE
             )
             .map((item) => (
-              <TransactionItem key={item.id} item={item} type="expense" />
+              <TransactionItem
+                key={item.id}
+                item={item}
+                type="expense"
+                showActions={isEditable}
+              />
             ))}
         </div>
 

@@ -12,10 +12,7 @@ const TransactionItem = ({ item, type, showActions = true }) => {
     >
       {/* Delete button */}
       {showActions && (
-        <div
-          name="deleteTransaction"
-          className="absolute -top-2 -right-3 z-50 hidden group-hover:block"
-        >
+        <div name="deleteTransaction" className="absolute -top-2 -right-3 z-50">
           <DeleteTransaction id={item.id} type={type} />
         </div>
       )}
@@ -41,7 +38,7 @@ const TransactionItem = ({ item, type, showActions = true }) => {
       </div>
       <div className="flex gap-4 items-center">
         {showActions && (
-          <div name="updateTransaction" className="hidden group-hover:block">
+          <div name="updateTransaction" className="">
             <UpdateTransactionDialog type={type} item={item} />
           </div>
         )}
